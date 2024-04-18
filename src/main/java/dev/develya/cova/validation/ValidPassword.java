@@ -1,5 +1,4 @@
-package dev.develya.cova.interfaces;
-import dev.develya.cova.model.PasswordValidatorConstraint;
+package dev.develya.cova.validation;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

@@ -1,4 +1,4 @@
-package dev.develya.cova.repositories;
+package dev.develya.cova.repository;
 
 import dev.develya.cova.model.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
