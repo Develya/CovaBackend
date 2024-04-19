@@ -7,16 +7,16 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "DaysOfWeek")
+@Table(name = "daysofweek")
 public class DayOfWeek {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DayID")
+    @Column(name = "dayid")
     private Integer dayID;
 
     @NotBlank
     @Size(max = 20)
-    @Column(name = "DayName")
+    @Column(name = "dayname")
     private String dayName;
 }

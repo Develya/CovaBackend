@@ -2,7 +2,7 @@
 INSERT INTO Users (LastName, FirstName, Telephone, DateOfBirth, Gender, Email, HashedPassword, RegistrationDate, PreferredLanguage, Profession, HobbiesInterests, EmergencyContact, ProfilePhoto, NotificationPreferences, IsActive, role)
 VALUES
     ('Doe', 'John', '123456789', '1990-01-01', 'Male', 'john.doe@example.com', 'hashedpassword1', NOW(), 'English', 'Software Engineer', 'Reading, Cooking', 'Jane Doe (sister) - 987654321', 'john_doe.jpg', 'Email', 'TRUE', 'Driver'),
-    ('Smith', 'Emma', '987654321', '1995-05-15', 'Female', 'emma.smith@example.com', 'hashedpassword2', NOW(), 'English', 'Graphic Designer', 'Painting, Traveling', 'Jack Smith (brother) - 123456789', 'emma_smith.jpg', 'Push-Notification', 'TRUE', 'Passenger'),
+    ('Smith', 'Emma', '987654321', '1995-05-15', 'Female', 'emma.smith@example.com', 'hashedpassword2', NOW(), 'English', 'Graphic Designer', 'Painting, Traveling', 'Jack Smith (brother) - 123456789', 'emma_smith.jpg', 'Push_Notification', 'TRUE', 'Passenger'),
     ('Johnson', 'Michael', '5551234567', '1988-09-20', 'Male', 'michael.johnson@example.com', 'hashedpassword3', NOW(), 'English', 'Teacher', 'Hiking, Photography', 'Sarah Johnson (wife) - 5559876543', 'michael_johnson.jpg', 'SMS', 'TRUE', 'Driver'),
     ('Brown', 'Sophia', '1112223333', '1982-03-10', 'Female', 'sophia.brown@example.com', 'hashedpassword4', NOW(), 'English', 'Doctor', 'Playing Piano, Yoga', 'James Brown (husband) - 1113332222', 'sophia_brown.jpg', 'Email', 'TRUE', 'Passenger');
 

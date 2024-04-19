@@ -2,38 +2,40 @@ package dev.develya.cova.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Ratings")
+@Data
+@Table(name = "ratings")
 public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ratingID")
+    @Column(name = "ratingid")
     private Integer ratingID;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "RaterID", referencedColumnName = "userID")
+    @JoinColumn(name = "raterid", referencedColumnName = "userid")
     private User rater;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "RatedID", referencedColumnName = "userID")
+    @JoinColumn(name = "ratedid", referencedColumnName = "userid")
     private User rated;
 
     @NotNull
-    @Column(name = "Score")
+    @Column(name = "score")
     private Integer score;
 
     @NotNull
-    @Column(name = "RatingDate")
+    @Column(name = "ratingdate")
     private LocalDateTime ratingDate;
 
     @Lob
-    @Column(name = "Comment", columnDefinition = "TEXT")
+    @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
 }
 

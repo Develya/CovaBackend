@@ -9,51 +9,51 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Cars")
+@Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CarID")
+    @Column(name = "carid")
     private Integer carID;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "DriverID", referencedColumnName = "userID")
+    @JoinColumn(name = "driverid", referencedColumnName = "userid")
     private User driver;
 
     @NotBlank
     @Size(max = 100)
-    @Column(name = "Brand")
+    @Column(name = "brand")
     private String brand;
 
     @NotBlank
     @Size(max = 100)
-    @Column(name = "Model")
+    @Column(name = "model")
     private String model;
 
     @NotNull
     @Positive
-    @Column(name = "CarYear")
+    @Column(name = "caryear")
     private Integer carYear;
 
     @NotBlank
     @Size(max = 50)
-    @Column(name = "Color")
+    @Column(name = "color")
     private String color;
 
     @NotBlank
     @Size(max = 20)
-    @Column(name = "LicensePlate")
+    @Column(name = "licenseplate")
     private String licensePlate;
 
     @NotBlank
     @Size(max = 50)
-    @Column(name = "SerialNumber")
+    @Column(name = "serialnumber")
     private String serialNumber;
 
     @NotNull
     @Positive
-    @Column(name = "NumberOfSeats")
+    @Column(name = "numberofseats")
     private Integer numberOfSeats;
 }

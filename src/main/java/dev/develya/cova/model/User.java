@@ -10,85 +10,85 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
+    @Column(name = "userid")
     private Integer userID;
 
     @NotBlank
     @Size(max = 255)
-    @Column(name = "LastName")
+    @Column(name = "lastname")
     private String lastName;
 
     @NotBlank
     @Size(max = 255)
-    @Column(name = "FirstName")
+    @Column(name = "firstname")
     private String firstName;
 
     @NotBlank
     @Size(max = 20)
     @Pattern(regexp = "\\d{10,20}", message = "Telephone number must be between 10 and 20 digits")
-    @Column(name = "Telephone")
+    @Column(name = "telephone")
     private String telephone;
 
     @Past
-    @Column(name = "DateOfBirth")
+    @Column(name = "dateofbirth")
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Gender")
+    @Column(name = "gender")
     private Gender gender;
 
     @NotBlank
     @Email
-    @Column(name = "Email", unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank
     @ValidPassword
-    @Column(name = "HashedPassword")
+    @Column(name = "hashedpassword")
     private String hashedPassword;
 
     @NotNull
     @Past
-    @Column(name = "RegistrationDate")
+    @Column(name = "registrationdate")
     private LocalDateTime registrationDate;
 
     @NotBlank
     @Size(max = 50)
-    @Column(name = "PreferredLanguage")
+    @Column(name = "preferredlanguage")
     private String preferredLanguage;
 
     @Size(max = 100)
-    @Column(name = "Profession")
+    @Column(name = "profession")
     private String profession;
 
-    @Column(name = "HobbiesInterests")
+    @Column(name = "hobbiesinterests")
     private String hobbiesInterests;
 
     @Size(max = 255)
-    @Column(name = "EmergencyContact")
+    @Column(name = "emergencycontact")
     private String emergencyContact;
 
     @Size(max = 255)
-    @Column(name = "ProfilePhoto")
+    @Column(name = "profilephoto")
     private String profilePhoto;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "NotificationPreferences")
-    private NotificationPreferences notificationPreferences;
+    @Column(name = "notificationpreferences")
+    private NotificationPreference notificationPreferences;
 
     @NotBlank
-    @Column(name = "IsActive")
+    @Column(name = "isactive")
     private String isActive;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "Role")
+    @Column(name = "role")
     private Role role;
 
     public enum Gender {
@@ -97,7 +97,7 @@ public class User {
         Other
     }
 
-    public enum NotificationPreferences {
+    public enum NotificationPreference {
         Email,
         SMS,
         Push_Notification

@@ -2,35 +2,37 @@ package dev.develya.cova.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Reservations")
+@Data
+@Table(name = "reservations")
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservationID")
+    @Column(name = "reservationid")
     private Integer reservationID;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "PassengerID", referencedColumnName = "userID")
+    @JoinColumn(name = "passengerid", referencedColumnName = "userid")
     private User passenger;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "JourneyID", referencedColumnName = "journeyID")
+    @JoinColumn(name = "journeyid", referencedColumnName = "journeyid")
     private Journey journey;
 
     @NotNull
-    @Column(name = "ReservationDate")
+    @Column(name = "reservationdate")
     private LocalDateTime reservationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "ReservationStatus")
+    @Column(name = "reservationstatus")
     private ReservationStatus reservationStatus;
 
     public enum ReservationStatus {

@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS Cars;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS DaysOfWeek;
 
-
 CREATE TABLE Users (
     userID INT AUTO_INCREMENT PRIMARY KEY,
     LastName VARCHAR(255) NOT NULL,
@@ -23,7 +22,7 @@ CREATE TABLE Users (
     HobbiesInterests TEXT,
     EmergencyContact VARCHAR(255),
     ProfilePhoto VARCHAR(255),
-    NotificationPreferences ENUM('Email', 'SMS', 'Push-Notification'),
+    NotificationPreferences ENUM('Email', 'SMS', 'Push_Notification'),
     IsActive VARCHAR(10), -- TRUE or FALSE
     role ENUM('Driver', 'Passenger') NOT NULL
 );
