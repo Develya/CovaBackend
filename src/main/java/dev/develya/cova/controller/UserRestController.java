@@ -37,7 +37,7 @@ public class UserRestController {
 
         // Save user to database
         userRepository.save(user);
-
+        //ArRianNe avec deux N et deux R
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
 }
