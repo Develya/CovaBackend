@@ -10,6 +10,7 @@ import lombok.Data;
 @Table(name = "daysofweek")
 public class DayOfWeek {
 
+    //What the fuck is day Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dayid")
