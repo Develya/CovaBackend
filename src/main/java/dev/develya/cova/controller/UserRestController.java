@@ -1,9 +1,14 @@
 package dev.develya.cova.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dev.develya.cova.model.User;
 import dev.develya.cova.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,42 +24,36 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserRestController {
 
+    private Gson gson = new Gson();
+
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/all")
     public List<User> all() {
         return userRepository.findAll();
     }
 
+
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult bindingResult) {
-        // Validate user input
-        if (bindingResult.hasErrors()) {
-            // Extract field errors
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            // Return field validation errors
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
+        try {
+            user.setRegistrationDate(LocalDateTime.now());
+            user.setIsActive("TRUE");
+            userRepository.save(user); // Attempt to add to DB
+            JsonObject responseObject = new JsonObject();
+            responseObject.addProperty("success", true);
+            responseObject.addProperty("message", "User registered successfully.");
+            return ResponseEntity.status(HttpStatus.CREATED).body(gson.toJson(responseObject)); // If success
+
+        } catch (DataIntegrityViolationException ex) {
+            // If problem with data integrity,
+            // we assume that it's related to the email already existing, since the validation logic
+            // makes sure that everything is in order
+            JsonObject errorObject = new JsonObject();
+            errorObject.addProperty("success", false);
+            errorObject.addProperty("message", "Email is already in use.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(errorObject));
         }
-
-        // Check if email already exists
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already in use.");
-        }
-
-        // Set registration date
-        user.setRegistrationDate(LocalDateTime.now());
-
-        // Set user as active
-        user.setIsActive("TRUE");
-
-        // Save user to database
-        userRepository.save(user);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
-
 }
