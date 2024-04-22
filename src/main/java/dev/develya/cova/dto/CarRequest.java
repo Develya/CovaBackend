@@ -1,4 +1,4 @@
-package dev.develya.cova.model;
+package dev.develya.cova.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

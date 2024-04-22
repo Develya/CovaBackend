@@ -3,6 +3,7 @@ package dev.develya.cova.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.develya.cova.dto.UserRequest;
 import dev.develya.cova.model.User;
 import dev.develya.cova.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -35,25 +36,64 @@ public class UserRestController {
     }
 
 
+    /* Future improvement for login and register:
+
+        - hashing for passwords
+
+       Future improvement for every endpoint:
+        - Authorization with roles
+        - JSON web token (https://www.baeldung.com/spring-security-sign-jwt-token)
+        -
+    */
+
+
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
+        JsonObject responseObject = new JsonObject();
         try {
-            user.setRegistrationDate(LocalDateTime.now());
-            user.setIsActive("TRUE");
+            if (userRepository.existsByEmail(user.getEmail())) { // If email is already used
+                responseObject.addProperty("success", false);
+                responseObject.addProperty("message", "Email is already in use.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(responseObject));
+
+            }
             userRepository.save(user); // Attempt to add to DB
-            JsonObject responseObject = new JsonObject();
             responseObject.addProperty("success", true);
             responseObject.addProperty("message", "User registered successfully.");
             return ResponseEntity.status(HttpStatus.CREATED).body(gson.toJson(responseObject)); // If success
 
-        } catch (DataIntegrityViolationException ex) {
-            // If problem with data integrity,
-            // we assume that it's related to the email already existing, since the validation logic
-            // makes sure that everything is in order
-            JsonObject errorObject = new JsonObject();
-            errorObject.addProperty("success", false);
-            errorObject.addProperty("message", "Email is already in use.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(errorObject));
+        } catch (Exception exception) {
+            responseObject.addProperty("success", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gson.toJson(exception.getMessage()));
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody UserRequest userRequest) {
+        JsonObject responseObject = new JsonObject();
+        try { // Check if user credentials match up to a user in the database
+
+            /* Future improvement:
+                - prevent code injection
+                - hashing for passwords
+            */
+            User user = userRepository.findByEmailAndAndHashedPassword(userRequest.getEmail(), userRequest.getHashedPassword());
+
+            if (user != null) {
+                responseObject.addProperty("success", true);
+                responseObject.addProperty("message", "Logged in successfully.");
+                responseObject.add("user", user.toJson()); // Valid credentials
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(gson.toJson(responseObject));
+
+            } else {
+                responseObject.addProperty("success", false); // Invalid credentials
+                responseObject.addProperty("message", "Invalid credentials");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(gson.toJson(responseObject));
+            }
+
+        } catch (Exception exception) {
+            responseObject.addProperty("success", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gson.toJson(responseObject));
         }
     }
 }

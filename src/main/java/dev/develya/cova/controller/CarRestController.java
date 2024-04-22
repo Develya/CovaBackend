@@ -1,7 +1,7 @@
 package dev.develya.cova.controller;
 
 import dev.develya.cova.model.Car;
-import dev.develya.cova.model.CarRequest;
+import dev.develya.cova.dto.CarRequest;
 import dev.develya.cova.model.User;
 import dev.develya.cova.repository.CarRepository;
 import dev.develya.cova.repository.UserRepository;
