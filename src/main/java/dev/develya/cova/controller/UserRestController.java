@@ -30,6 +30,11 @@ public class UserRestController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/test")
+    public String test() {
+        return "hello";
+    }
+
     @GetMapping("/all")
     public List<User> all() {
         return userRepository.findAll();
@@ -62,7 +67,7 @@ public class UserRestController {
             responseObject.addProperty("message", "User registered successfully.");
             return ResponseEntity.status(HttpStatus.CREATED).body(gson.toJson(responseObject)); // If success
 
-        } catch (Exception exception) {
+        } catch (Exception exception) { // Unknown error
             responseObject.addProperty("success", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gson.toJson(exception.getMessage()));
         }
@@ -71,27 +76,29 @@ public class UserRestController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody UserRequest userRequest) {
         JsonObject responseObject = new JsonObject();
-        try { // Check if user credentials match up to a user in the database
+        try {
 
             /* Future improvement:
                 - prevent code injection
                 - hashing for passwords
             */
+
+            // Attempt to find user with matching credentials in the DB
             User user = userRepository.findByEmailAndAndHashedPassword(userRequest.getEmail(), userRequest.getHashedPassword());
 
-            if (user != null) {
+            if (user != null) { // if credentials matched
                 responseObject.addProperty("success", true);
                 responseObject.addProperty("message", "Logged in successfully.");
-                responseObject.add("user", user.toJson()); // Valid credentials
+                responseObject.add("user", user.toJson());
                 return ResponseEntity.status(HttpStatus.ACCEPTED).body(gson.toJson(responseObject));
 
-            } else {
-                responseObject.addProperty("success", false); // Invalid credentials
+            } else { // if credentials are not valid
+                responseObject.addProperty("success", false);
                 responseObject.addProperty("message", "Invalid credentials");
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(gson.toJson(responseObject));
             }
 
-        } catch (Exception exception) {
+        } catch (Exception exception) { // Unknown error
             responseObject.addProperty("success", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(gson.toJson(responseObject));
         }

@@ -1,5 +1,6 @@
 package dev.develya.cova.model;
 
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -56,4 +57,18 @@ public class Car {
     @Positive
     @Column(name = "numberofseats")
     private Integer numberOfSeats;
+
+    public JsonObject toJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("carID", carID);
+        jsonObject.addProperty("driverID", driver != null ? driver.getUserID() : null);
+        jsonObject.addProperty("brand", brand);
+        jsonObject.addProperty("model", model);
+        jsonObject.addProperty("carYear", carYear);
+        jsonObject.addProperty("color", color);
+        jsonObject.addProperty("licensePlate", licensePlate);
+        jsonObject.addProperty("serialNumber", serialNumber);
+        jsonObject.addProperty("numberOfSeats", numberOfSeats);
+        return jsonObject;
+    }
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 public class CarRequest {
 
     @NotNull(message = "Driver ID cannot be null")
-    private Integer driverId;
+    private Integer driverID;
 
     @NotBlank(message = "Brand is required")
     @Size(max = 100, message = "Brand must be at most 100 characters")
