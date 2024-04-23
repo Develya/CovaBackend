@@ -1,5 +1,6 @@
 package dev.develya.cova.controller;
 
+import com.google.gson.Gson;
 import dev.develya.cova.model.Journey;
 import dev.develya.cova.model.Trajet;
 import dev.develya.cova.repository.JourneyRepository;
