@@ -37,6 +37,11 @@ public class CarRestController {
         return carRepository.findAll();
     }
 
+    @GetMapping("/carByDriverID/{id}")
+    public List<Car> carByDriverID(@PathVariable int id ){
+            List<Car> cars = carRepository.findByDriver_UserID(id);
+            return cars;
+    }
     @PostMapping("/add")
     public ResponseEntity<String> addCar(@Valid @RequestBody CarRequest carRequest) {
         JsonObject responseObject = new JsonObject();

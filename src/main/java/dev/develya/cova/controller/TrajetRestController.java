@@ -34,6 +34,12 @@ public class TrajetRestController {
     public List<Trajet> all() {
         return trajetRepository.findAll();
     }
+    @GetMapping("/findByTrajetId/{id}")
+    public Trajet byTrajetID(@PathVariable int id){
+        Optional<Trajet> trajet = trajetRepository.findById(id);
+        Trajet trajet1 = trajet.get();
+        return trajet1;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> createTrajetTabarnak(@Valid @RequestBody Trajet trajet){
