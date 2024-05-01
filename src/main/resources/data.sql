@@ -28,9 +28,9 @@ VALUES
 -- Insert trajets
 INSERT INTO Trajets (DepartureAddress, DestinationAddress, DesiredDepartureTime, DesiredArrivalTime, UserID, DayID)
 VALUES
-    ('123 Main St, City1', '456 Elm St, City2', '2024-04-18 08:00:00', '2024-04-18 09:00:00', 1, 1),
+    ('2070 Rue de la Falaise, Saint-Lazare', '169 Rue Champlain, Salaberry-de-Valleyfield', '2024-04-18 08:00:00', '2024-04-18 09:00:00', 1, 1),
     ('789 Oak St, City3', '321 Pine St, City4', '2024-04-18 09:00:00', '2024-04-18 10:00:00', 3, 2),
-    ('654 Maple St, City5', '987 Cedar St, City6', '2024-04-18 10:00:00', '2024-04-18 11:00:00', 4, 3),
+    ('2070 Rue de la Falaise, Saint-Lazare', '169 Rue Champlain, Salaberry-de-Valleyfield', '2024-04-18 10:00:00', '2024-04-18 11:00:00', 4, 3),
     ('876 Birch St, City7', '543 Walnut St, City8', '2024-04-18 11:00:00', '2024-04-18 12:00:00', 2, 4);
 
 -- Insert journeys
